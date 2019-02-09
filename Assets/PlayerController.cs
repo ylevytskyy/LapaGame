@@ -10,14 +10,13 @@ public class PlayerController : MonoBehaviour
 
     private float lastSpawned;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
+        SpawnEnemy();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         var v = Input.GetAxis("Vertical");
         transform.position += new Vector3(0, v * Time.deltaTime);
@@ -31,9 +30,15 @@ public class PlayerController : MonoBehaviour
         bool shouldSpawn = (Time.time - lastSpawned) > 3.0f;
         if (shouldSpawn)
         {
-            lastSpawned = Time.time;
-
-            Instantiate(enemyPrefab, new Vector3(-9.0f, Random.Range(-5.0f, 5.0f)), Quaternion.LookRotation(enemyPrefab.transform.forward));
+            SpawnEnemy();
         }
     }
+
+    private void SpawnEnemy()
+    {
+        lastSpawned = Time.time;
+
+        Instantiate(enemyPrefab, new Vector3(-9.0f, Random.Range(-5.0f, 5.0f)), Quaternion.LookRotation(enemyPrefab.transform.forward));
+    }
+
 }
